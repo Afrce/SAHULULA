@@ -67,7 +67,7 @@ class Sock
                     } else {
                         // 如果已经握手，直接接受数据，并处理
                         $buffer = $this->decode($buffer);
-                        //echo $buffer;
+                        echo $buffer;
                     }
                 }
             }
