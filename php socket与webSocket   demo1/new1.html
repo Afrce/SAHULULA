@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css"/>
+		<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<title></title>
+	</head>
+	<body>
+		<div class="container" style="margin-top: 10px;">
+			<div class="pull-left col-md-8 col-sm-8 col-xs-8" style="height: 500px;border: 1px solid gainsboro;">
+				<div id="content" style="height: 90%;">
+					
+				</div>
+				<div class="input-group">
+					<input type="text" class="form-control" id="contents"/>
+					 <span class="input-group-addon " id="send">发送</span>
+				</div>
+			</div>
+			<div class="pull-right col-md-4 col-sm-4 col-xs-4" style="height: 500px;overflow-y: auto;border: 1px solid gainsboro;">
+				
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var url='ws://127.0.0.1:8000';
+	var name=prompt('请输入用户名');
+	var ws=new WebSocket(url);
+	ws.onopen=function(){
+		console.log('open success');
+		if(ws.readyState==1){
+		console.log('all ready');
+		ws.send('type=add&name='+name);
+		}
+	};
+	ws.onclose=function(){
+		console.log('关闭');
+	};
+    ws.onmessage=function(data){
+	    console.log(data['data']);
+	};
+    $('#send').click(function () {
+        $msg=$('#contents').val();
+		ws.send($msg);
+    });
+</script>
